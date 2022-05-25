@@ -38,6 +38,12 @@ app.post('/createTodo', (req, res) => {
     res.send(todo);
 })
 
+app.patch('/completeTodo/:id', (req, res) => {
+    const todoIndex = todos.findIndex(t => t.id == req.params.id)
+    todos[todoIndex].done = true;
+    res.send(todos[todoIndex]);
+})
+
 
 //
 

@@ -1,5 +1,6 @@
 const todoList = document.getElementById('todoList');
 
+// dodaje todosa również do lokalnego stanu []
 function addTodo() {
     const todoDescription = document.getElementById('todoInput');
     const description = todoDescription.value;
@@ -12,14 +13,15 @@ function addTodo() {
 		},
     })
     .then(response => response.json())
-    loadTodos()
+    setTimeout(loadTodos, 100)
 }
 
-// to samo co funkcja z lini 22
+// to samo co funkcja z lini 25
 function resToJson(response){
     return response.json();
 }
 
+// aktualizuje loklany stan []
 function loadTodos() {
     fetch('http://localhost:3000/getTodos')
     .then(response => response.json())
@@ -30,11 +32,16 @@ function loadTodos() {
 const renderTodos = (todos) => {
     todoList.innerHTML = '';
     todos.forEach(t => {
-        todoList.innerHTML += `<li> ${t.description} </li>`
+        todoList.innerHTML += `<li id="t${t.id}" class="todo_item"> ${t.description} </li>`
+
+        const listItem = document.getElementById(`t${t.id}`)
+
+        listItem.addEventListener("click", () => {
+            fetch(`http://localhost:3000/completeTodo/${t.id}`, { method: "patch" })
+            .then(response => response.json())
+        })
     })
 }
-
-
 
 
 loadTodos();
