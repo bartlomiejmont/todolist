@@ -1,3 +1,12 @@
 .todo_item:hover {
     color:rgb(255, 64, 64);
 }
+
+.todo_item_done{
+    text-decoration: line-through;
+}
+
+.todo_item {
+    color: rgb(210, 47, 255);
+}
+

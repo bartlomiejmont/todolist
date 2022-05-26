@@ -5,6 +5,7 @@ const app = express();
 const port = 3000;
 
 app.use(cors());
+
 app.use(bodyParser.json());
 app.use(express.urlencoded({
     extended: true
@@ -38,13 +39,11 @@ app.post('/createTodo', (req, res) => {
     res.send(todo);
 })
 
-app.patch('/completeTodo/:id', (req, res) => {
-    const todoIndex = todos.findIndex(t => t.id == req.params.id)
-    todos[todoIndex].done = true;
+app.post('/completeTodo/:id', (req, res) => {
+    const todoIndex = todos.findIndex(t => t.id == req.params.id);
+    todos[todoIndex].done = !todos[todoIndex].done
     res.send(todos[todoIndex]);
 })
-
-
 //
 
 app.listen(port, () => {
