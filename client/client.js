@@ -22,6 +22,7 @@ function addTodo() {
     })
         .then(response => response.json())
     rerender();
+    todoInput.value = ''
 }
 
 function rerender() {
